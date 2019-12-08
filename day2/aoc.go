@@ -8,18 +8,18 @@ import "fmt"
 func intCode(a codeArray) int {
 	i := 0
 	for {
-		opcode := a[i]
-		if opcode == 1 {
+		switch a[i] {
+		case 1:
 			value1 := a[a[i+1]]
 			value2 := a[a[i+2]]
 			a[a[i+3]] = value1 + value2
-		} else if opcode == 2 {
+		case 2:
 			value1 := a[a[i+1]]
 			value2 := a[a[i+2]]
 			a[a[i+3]] = value1 * value2
-		} else if opcode == 99 {
+		case 99:
 			return a[0]
-		} else {
+		default:
 			panic(fmt.Sprint(a[i], a[1], a[2]))
 		}
 		i += 4
