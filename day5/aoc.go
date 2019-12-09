@@ -48,6 +48,11 @@ func intCode(a codeArray, input int) (output int) {
 	for i := 0; i < len(a); i += skip {
 		opCode := a[i] % 100
 
+		// Output validation
+		if output != 0 && opCode != 99 {
+			panic("Wrong output")
+		}
+
 		switch opCode {
 		case 1: // ADD
 			pos, v1, v2 := parseInstruction(a, i)
@@ -63,8 +68,7 @@ func intCode(a codeArray, input int) (output int) {
 			skip = 2
 		case 4: // OUTPUT
 			v1Mode := (a[i] % 1000) / 100
-			v1 := getArg(v1Mode, i+1, a)
-			output = v1
+			output = getArg(v1Mode, i+1, a)
 			skip = 2
 		case 99:
 			return output
